@@ -1,0 +1,58 @@
+[
+  {
+    "id": "RCE-001",
+    "severity": "CRITICAL",
+    "type": "function_call",
+    "pattern": {
+      "module": "child_process",
+      "methods": ["exec", "execSync", "spawn"]
+    },
+    "description": "使用 child_process 执行系统命令，可能导致远程命令执行（RCE）风险。",
+    "remediation": "避免在 Skill 中直接调用 child_process 执行系统命令；如必须使用，请限制可执行命令并使用严格的参数白名单和沙箱。"
+  },
+  {
+    "id": "CODEEXEC-001",
+    "severity": "CRITICAL",
+    "type": "function_call",
+    "pattern": {
+      "globalIdentifiers": ["eval", "Function"]
+    },
+    "description": "动态代码执行（eval / Function）可能导致任意代码执行风险。",
+    "remediation": "避免使用 eval 和 Function 构造函数；改用安全的解析逻辑或预定义的函数映射，禁止执行来自外部输入的代码。"
+  },
+  {
+    "id": "FILE-DELETE-001",
+    "severity": "HIGH",
+    "type": "function_call",
+    "pattern": {
+      "module": "fs",
+      "methods": ["rm", "unlink"],
+      "dangerousArgPattern": "[*/]"
+    },
+    "description": "调用 fs.rm / fs.unlink 删除文件，且参数包含通配符或根目录，存在误删或破坏性操作风险。",
+    "remediation": "对文件删除操作进行严格的路径白名单和范围限制，避免在运行时构造包含通配符或敏感目录的删除路径。"
+  },
+  {
+    "id": "EXFIL-001",
+    "severity": "HIGH",
+    "type": "function_call",
+    "pattern": {
+      "httpClients": ["axios.post", "fetch"],
+      "allowedDomains": ["localhost", "127.0.0.1", "0.0.0.0"]
+    },
+    "description": "向非白名单域名发送 POST 请求，可能存在数据外传风险。",
+    "remediation": "限制外联目标域名，仅允许访问明确配置的受信任后端；对敏感数据的上报进行脱敏或移除。"
+  },
+  {
+    "id": "OBFUSCATION-001",
+    "severity": "MEDIUM",
+    "type": "entropy",
+    "pattern": {
+      "minLength": 20,
+      "minEntropy": 4.5
+    },
+    "description": "检测到高熵长字符串，可能是混淆代码或嵌入的加密载荷。",
+    "remediation": "检查这些高熵字符串的用途，确认是否为必要的加密数据；避免在 Skill 中直接嵌入难以审计的混淆代码。"
+  }
+]
+

@@ -1,0 +1,15 @@
+{
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 8000
+  },
+  "logging": {
+    "level": "debug",
+    "debug": true
+  },
+  "auth": {
+    "password": "SuperSecretPassword123!",
+    "apiKey": "sk-TEST_FAKE_KEY_1234567890",
+    "awsAccessKeyId": "AKIAFAKE1234567890"
+  }
+}

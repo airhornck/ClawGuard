@@ -1,0 +1,54 @@
+{
+  "name": "clawguard",
+  "version": "0.1.0",
+  "description": "ClawGuard - OpenClaw 安全审计与加固 CLI 工具（MVP）",
+  "private": true,
+  "bin": {
+    "clawguard": "dist/index.cjs"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --dts --minify --clean",
+    "pkg": "npm run build && pkg .",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "prepare": "npm run build"
+  },
+  "type": "module",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.0.0",
+    "globby": "^14.0.1",
+    "ipaddr.js": "^2.2.0",
+    "json5": "^2.2.3",
+    "@babel/parser": "^7.26.3",
+    "@babel/traverse": "^7.26.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^9.0.0",
+    "pkg": "^5.8.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0"
+  },
+  "pkg": {
+    "scripts": "dist/index.cjs",
+    "assets": [
+      "src/rules/signatures.json"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "release"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "openclaw",
+    "security",
+    "audit",
+    "cli"
+  ]
+}

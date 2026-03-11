@@ -1,0 +1,17 @@
+{
+  // 模拟 OpenClaw 全局配置（含明显风险）
+  "gateway": {
+    "host": "0.0.0.0",
+    "port": 8000
+  },
+  "logging": {
+    "level": "debug",
+    "debug": true
+  },
+  "auth": {
+    "password": "SuperSecretPassword123!",
+    "apiKey": "sk-TEST_FAKE_KEY_1234567890",
+    "awsAccessKeyId": "AKIAFAKE1234567890"
+  }
+}
+
